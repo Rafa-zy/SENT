@@ -1,0 +1,1 @@
+PYTHONWARNINGS='ignore' OMP_NUM_THREADS=4 python updateandselect_LCS.py

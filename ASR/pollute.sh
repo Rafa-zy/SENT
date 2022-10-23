@@ -1,0 +1,1 @@
+PYTHONWARNINGS='ignore' OMP_NUM_THREADS=4 python pollute_label.py

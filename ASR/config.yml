@@ -1,0 +1,197 @@
+# exp
+random_seed: 2020
+
+
+
+#worse aishell-1
+# work_dir: "./noisy_label_higher/aishell1_worse_exp/"
+# noise_manifest: './data/aishell1_worsemini.json'
+# metadev_manifest: './data/aishell_metadev_worsemini.json'
+# meta_manifest: './data/aishell_meta_worsemini.json'
+# dev_manifest: "./data/aishell_dev_worsemini.json"
+# training_sets: "worsemini"
+# vocab_path: './data/vocab_aishell1_worse.txt'
+# pretrain_dir: "./noisy_label_higher/aishell1_worse/"
+# lr: 3.0e-4                                           # learning rate
+# lr_min: 1.0e-6                                       # minimum learning rate
+# pre_train: False 
+# pre_train_steps: 19000
+# pre_train_optim_steps: 19000
+# pretrain_epochs: 20  #total pretrain epochs. including skipped epochs
+# max_history_len: 10
+# accumulate_interval: 1
+# warmup_step: 20000                                     # warmup step
+# max_step: 50000                                   # max number of steps
+
+#normal aishell-1
+# work_dir: "./noisy_label_higher/aishell1_normal_exp/"
+# training_sets: 'miniinfer'
+# noise_manifest: './data/aishell1_normalmini.json'
+# metadev_manifest: './data/aishell_metadev_normalmini.json'
+# meta_manifest: './data/aishell_meta_normalmini.json'
+# dev_manifest: './data/aishell_dev_normalmini.json'
+# vocab_path: './data/vocab_aishell1_normal.txt'
+# pretrain_dir: "./noisy_label_higher/aishell1_normal/"
+# lr: 3.0e-4                                           # learning rate
+# lr_min: 1.0e-6                                       # minimum learning rate
+# pre_train: False 
+# pre_train_steps: 19000
+# pre_train_optim_steps: 19000
+# pretrain_epochs: 20  #total pretrain epochs. including skipped epochs
+# max_history_len: 12
+# # accumulate_interval: 1
+# warmup_step: 20000                                     # warmup step
+# max_step: 50000                                   # max number of steps
+
+
+#better aishell-1
+# work_dir: "./noisy_label_higher/aishell1_better_exp/"
+# training_sets: 'bettermini'
+# noise_manifest: './data/aishell1_bettermini.json'
+# metadev_manifest: './data/aishell_metadev_bettermini.json'
+# meta_manifest: './data/aishell_meta_bettermini.json'
+# dev_manifest: './data/aishell_dev_bettermini.json'
+# vocab_path: './data/vocab_aishell1_better.txt'
+# pretrain_dir: "./noisy_label_higher/aishell1_better/"
+# lr: 3.0e-4                                           # learning rate
+# lr_min: 1.0e-6                                       # minimum learning rate
+# pre_train: False 
+# pre_train_steps: 19000
+# pre_train_optim_steps: 19000
+# pretrain_epochs: 20  #total pretrain epochs. including skipped epochs
+# max_history_len: 18
+# accumulate_interval: 1
+# warmup_step: 20000                                     # warmup step
+# max_step: 50000                                   # max number of steps
+
+#origina aishell1, this is for pretrain model and to pollute datasets
+# work_dir: "./noisy_label_higher/aishell1_normal_exp/"
+# noise_manifest: './data/aishell1_original_train.json'
+# dev_manifest: "./data/aishell1_original_dev.json"
+# vocab_path: './data/vocab_aishell1.txt'
+# pretrain_dir: "./noisy_label_higher/aishell1_origin/"
+# lr: 1.0e-4                                           # learning rate
+# lr_min: 1.0e-6                                       # minimum learning rate
+# pre_train: False 
+# pre_train_steps: 19000
+# pre_train_optim_steps: 19000
+# pretrain_epochs: 1  #total pretrain epochs. including skipped epochs
+# accumulate_interval: 1
+# warmup_step: 3000                                     # warmup step
+# max_step: 30000                                   # max number of steps
+
+test_manifest: "./data/aishell1_original_test.json"
+log_interval: 100
+eval_interval: 400
+dist_log_interval: 100
+
+# model
+label_smooth: 0.0                                      # labeling smoothing epsilon
+enc_n_layer: 12                                            # number of layers
+dec_n_layer: 6
+n_head: 4                                             #  number of heads
+d_model: 256                                          # model dimension
+d_head: 64                                             # dimension per head
+d_inner: 2048                                          # units in FF
+#small
+# enc_n_layer: 6                                            # number of layers
+# dec_n_layer: 3
+# n_head: 4                                             #  number of heads
+# d_model: 128                                          # model dimension
+# d_head: 32                                             # dimension per head
+# d_inner: 1024                                          # units in FF
+chunk_size: -1                                         # chunk sizes in encoder TFM
+dropout: 0.05                                           # dropout
+dropatt: 0.05                                           # ropout on attention weights
+tie_weight: true                                       # tie weights or not
+clamp_len: -1                                          # clamp len for pos embeddings
+
+# feature
+n_fft: 320
+hop_len: 160 
+win_len: 320 
+n_mels: 64
+n_mfcc: 80
+target_sample_rate: 16000                              # sample rate
+concat_size: 5                                         # concat size for specgram
+
+# data
+num_proc_data: 2                                       # of CPUs for data preprocessing.
+max_duration: 20.0                                     # Longest audio duration allowed.
+max_text_len: 150                                      # max text length
+min_duration: 0.2                                      # Shortest audio duration allowed.
+batch_size: 300                                         # Minibatch size.
+batch_size_in_s2: 500.0                                 # batch size in seconds
+dev_batch_size: 300
+dev_batch_size_in_s2: 500.0                                 # batch size in seconds
+
+
+# train
+
+meta_scheduler: 0.995
+meta_lr_step_ratio: 8
+lr_gamma: 0.99982
+meta_lr: 1.0e-2
+meta_lr_cls: 1.0e-2
+meta_lr_cls_min: 1.0e-5
+meta_lr_min: 1.0e-5
+
+resume_training: False
+resume_epoch: 18
+resume_dir: ""
+#burn in
+burn_in: False
+burn_in_steps: 90000
+start_burn_drop: 0.5
+final_burn_drop: 0
+
+
+
+#dynamic batching
+dynamic: True
+nondynamic_bsz: 16
+
+shuffle: True
+# test
+max_decode_len: 100
+beam_size: 5
+
+#others
+RBF: False
+use_hist_weight: False
+only_different: True
+loss_gamma_min: 0.9
+loss_gamma_max: 0.9
+hist_accumulate: True
+read_hist_labels: False
+epoch_gap: 1
+num_saved_models: 10
+include_GT: False
+multi_rounds: 4
+input_size: 4
+output_size: 3
+hidden_size: 1024
+act: "elu"
+acc_epochs: 1
+meta_patience: 3
+bnm: False
+new_TF: False
+use_onehot: False
+use_aug: True
+min_max: True
+save_hist: True
+warmup_epochs: 0
+soft_select: False
+self_train: False
+hidden_feature: True
+select: True
+search_target: "f"
+weighted_loss: True
+search: False
+beta: 0.1
+same_beta: 0.8
+use_loss: True
+use_hist_entropy: True
+use_cur_entropy: True
+#debug
+debug: False
